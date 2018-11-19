@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>StreetSimple</title>
+  <%= stylesheet_link_tag    'application', media: 'all'%>
+  <%= javascript_include_tag 'application'%>
+  <%= csrf_meta_tags %>
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+
+</head>
+<body>
+<header class="nav">
+	<div class="nav-logo">
+		<ul class="group">
+			<li>
+				<a href="/#" class="logo-link"><h1><i class="fa fa-home"></i>  STREET<sup>SIMPLE </sup></h1></a>
+			</li>
+		</ul>
+	</div>
+<% if !signed_in? %>
+	<div class="nav-settings">
+		<ul class="group">
+			<li>
+				<a href="#" class="settings-link">Sign In / Register / <strong>Sign In As Demo User</strong></a>
+			</li>
+		</ul>
+	</div>
+<% else %>
+	<div class="nav-settings">
+		<ul class="group">
+			<li class="user-dropdown-container">
+			  <a href="#">Welcome <%= current_user.email %> ▾</a>
+				<ul class="dropdown">
+					<li><a href="#">Search Home</a>
+					<li><a href="#/property/new" class="new-property-link">Add a new property</a></li>
+					<li><a href="#/properties/saved" class="saved-property-link">Saved Properties</a></li>
+					<li><%= link_to "Sign out", session_url, method: :delete %></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+<% end %>
+<% if flash[:errors] %>
+  <ul>
+    <% flash[:errors].each do |error| %>
+      <li><p><%= error %></p></li>
+    <% end %>
+  </ul>
+<% end %>
+</header>
+<div class="main">
+	<%= yield %>
+</div>
+
+
+<% if !signed_in? %>
+	<section id="sign-in-sign-up">
+		<article class="signin-view">
+			<header>
+				<button class="sign-in-cancel">CANCEL</button>
+				<h3>Sign In</h3>
+			</header>
+			<div class="sign-in-body">
+				<p>Please sign in.</p>
+
+				<div class="switch-button-container">
+					<ul class="group">
+						<li><button class="signin-switch">SIGN IN</li>
+						<li><button class="register-switch">REGISTER</button></li>
+					</ul>
+				</div>
+				<form action="<%= session_url %>" method="POST">
+					<%= auth_token %>
+					<input type="text" name="user[email]" placeholder="Email Address" class="modal-input" id="signin-email">
+					<input type="password" name="user[password]" placeholder="Password" class="modal-input" id="signin-password">
+					<button class="sign-in-button">SIGN IN</button>
+					<button class="sign-in-dummy">SIGN IN AS DEMO USER</button>
+				</form>
+			</div>
+		</article>
+
+		<article class="register-view">
+			<header>
+				<button class="sign-in-cancel">CANCEL</button>
+				<h3>Register</h3>
+			</header>
+			<div class="sign-in-body">
+				<p>Register for free to access all StreetEasy has to offer including premium data and advanced features.</p>
+				<div class="switch-button-container">
+					<ul class="group">
+						<li><button class="signin-switch">SIGN IN</li>
+						<li><button class="register-switch">REGISTER</button></li>
+					</ul>
+				</div>
+				<form action="<%= users_url %>" method="POST">
+					<%= auth_token %>
+					<input type="text" name="user[email]" placeholder="Email Address" class="modal-input">
+					<input type="password" name="user[password]" placeholder="Password" class="modal-input">
+					<button class="sign-in-button">REGISTER</button>
+				</form>
+			</div>
+		</article>
+	</section>
+<% end %>
+
+<script template="application/json" id="bootstrapped-current-user">
+	<%= current_user.nil? ? false : current_user.id %>
+</script>
+
+<script template="application/json" id="bootstrapped-all-neighborhoods">
+	<%= all_neighborhoods.to_json.html_safe %>
+</script>
+
+<script template="application/json" id="bootstrapped-all-addresses">
+	<%= all_addresses.to_json.html_safe %>
+</script>
+
+<script template="application/json" id="bootstrapped-all-apt-types">
+	<%= all_apt_types.to_json.html_safe %>
+</script>
+
+
+<script>
+	StreetEasyClone.bannerAssetPath = "<%= asset_path('new-york-empire_compressed_original.jpg') %>";
+
+	$(document).ready(function() {
+		StreetEasyClone.isHome = true
+		StreetEasyClone.neighborhoods = JSON.parse($("script#bootstrapped-all-neighborhoods").html());
+		StreetEasyClone.apt_types = JSON.parse($("script#bootstrapped-all-apt-types").html());
+		StreetEasyClone.addresses = JSON.parse($("script#bootstrapped-all-addresses").html());
+		StreetEasyClone.currentUser = JSON.parse($("script#bootstrapped-current-user").html());
+		StreetEasyClone.initialize();
+
+
+		$(".settings-link").on("click", function(event) {
+			event.preventDefault();
+			$("#sign-in-sign-up").toggleClass("is-active");
+			$(".signin-view").toggleClass("is-active");
+			$(".signin-switch").toggleClass("is-active");
+		});
+
+		$(".signin-switch").on("click", function(event) {
+			if(!$(event.currentTarget).hasClass("is-active")) {
+				$(".signin-view").toggleClass("is-active");
+				$(".signin-switch").toggleClass("is-active");
+				$(".register-view").toggleClass("is-active");
+				$(".register-switch").toggleClass("is-active");
+			}
+		});
+
+		$(".register-switch").on("click", function(event) {
+			if(!$(event.currentTarget).hasClass("is-active")) {
+				$(".signin-view").toggleClass("is-active");
+				$(".signin-switch").toggleClass("is-active");
+				$(".register-view").toggleClass("is-active");
+				$(".register-switch").toggleClass("is-active");
+			}
+		});
+
+		$(".sign-in-cancel").on("click", function(event) {
+			event.preventDefault();
+			$("#sign-in-sign-up").toggleClass("is-active");
+			$(".signin-view").removeClass("is-active");
+			$(".signin-switch").removeClass("is-active");
+			$(".register-view").removeClass("is-active");
+			$(".register-switch").removeClass("is-active");
+		});
+
+    $("#sign-in-sign-up").on("click", function(event){
+      if(event.target.id == this.id){
+        event.preventDefault();
+        $("#sign-in-sign-up").toggleClass("is-active");
+				$(".signin-view").removeClass("is-active");
+				$(".signin-switch").removeClass("is-active");
+				$(".register-view").removeClass("is-active");
+				$(".register-switch").removeClass("is-active");
+      }
+    });
+
+		$(".sign-in-dummy").on("click", function (event) {
+			event.preventDefault();
+			$("#signin-email").val("agent1@gmail.com");
+			$("#signin-password").val("agent1agent1");
+			$(".signin-view .sign-in-button").click();
+		});
+
+
+
+
+
+	});
+</script>
+
+
+</body>
+</html>

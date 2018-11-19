@@ -1,0 +1,76 @@
+<div class="search-filter">
+	<% if(savedPage) { %>
+		<% if(count === 0) { %>
+			<h2 class="title">No Saved Properties</h2>
+		<% } else if (count === 1) { %>
+			<h2 class="title"><b><%= count %></b> Saved Properties</h2>
+		<% } else { %>
+			<h2 class="title"><b><%= count %></b> Saved Properties</h2>
+		<% } %>
+	<% } else { %>
+		<% if(count === 0) { %>
+			<h2 class="title">No Properties Found</h2>
+		<% } else if (count === 1) { %>
+			<h2 class="title"><b><%= count %></b> Property Found</h2>
+		<% } else { %>
+			<h2 class="title"><b><%= count %></b> Properties Found</h2>
+		<% } %>
+	<% } %>
+</div>
+<div class="search-terms">
+	<% if(!savedPage) { %>
+	<p>
+	<% if(StreetEasyClone.searchQueryJSON && StreetEasyClone.searchQueryJSON.property.location.length > 0) { %>
+		<b>Location:</b> "<%= StreetEasyClone.searchQueryJSON.property.location %>"
+	<% } %>
+	<% if(StreetEasyClone.searchQueryJSON && StreetEasyClone.searchQueryJSON.property.apt_type.length > 0) { %>
+		<b>Type:</b> "<%= StreetEasyClone.searchQueryJSON.property.apt_type %>"
+	<% } %>
+	<% if(StreetEasyClone.searchQueryJSON && StreetEasyClone.searchQueryJSON.property.beds.length > 0) { %>
+		<b>Bedrooms:</b> "<%= StreetEasyClone.searchQueryJSON.property.beds %>"
+	<% } %>
+	<% if(StreetEasyClone.searchQueryJSON && StreetEasyClone.searchQueryJSON.property.baths.length > 0) { %>
+		<b>Bathrooms:</b> "<%= StreetEasyClone.searchQueryJSON.property.baths %>"
+	<% } %>
+	<% if(StreetEasyClone.searchQueryJSON && StreetEasyClone.searchQueryJSON.property.min_price.length > 0) { %>
+		<b>Min Price:</b> "<%= StreetEasyClone.convertNumToCurrency(StreetEasyClone.searchQueryJSON.property.min_price) %>"
+	<% } %>
+	<% if(StreetEasyClone.searchQueryJSON && StreetEasyClone.searchQueryJSON.property.max_price.length > 0) { %>
+		<b>Max Price:</b> "<%= StreetEasyClone.convertNumToCurrency(StreetEasyClone.searchQueryJSON.property.max_price) %>"
+	<% } %>
+	</p>
+	<% } %>
+</div>
+<ul class="view-switch-container group">
+	<li>
+	  <button data-id="list" class="view-switch">LIST</button>
+	</li>
+	<li>
+	  <button data-id="map" class="view-switch">MAP</button>
+	</li>
+	<li class="sort-form-container">
+		<form class="sort-form">Sort By:
+			<select class="sort-select" name="sort-criterion">
+				<option val="price_largest" <% if(StreetEasyClone.sortString === "sort=price+desc") { %> Selected <% }; %>>Most Expensive</option>
+				<option val="price_smallest" <% if(StreetEasyClone.sortString === "sort=price+asc") { %> Selected <% }; %>>Least Expensive</option>
+				<option val="sq_ft_largest" <% if(StreetEasyClone.sortString === "sort=sq_ft+desc") { %> Selected <% }; %>>Largest</option>
+				<option val="sq_ft_smallest" <% if(StreetEasyClone.sortString === "sort=sq_ft+asc") { %> Selected <% }; %>>Smallest</option>
+				<option val="beds_largest" <% if(StreetEasyClone.sortString === "sort=beds+desc") { %> Selected <% }; %>>Most Bedrooms</option>
+				<option val="beds_smallest" <% if(StreetEasyClone.sortString === "sort=beds+asc") { %> Selected <% }; %>>Least Bedrooms</option>
+			</select>
+			<button class="sort-button"></button>
+		</form>
+	</li>
+</ul>
+<div class="view-container">
+
+</div>
+
+
+<script>
+	$(document).ready(function() {
+		$("select").on("change", function(event) {
+			$(".sort-button").click();
+		});
+	});
+</script>

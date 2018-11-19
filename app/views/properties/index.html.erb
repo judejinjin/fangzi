@@ -1,0 +1,102 @@
+<div class="search-filter">
+	<h2 class="title"><b><%= @properties.total_count %></b> Properties Found With:</h2>
+	<% params["property"].each do |attribute, value| %>
+		<% unless value == "" %>
+			<b><%= attribute.capitalize %></b>: <%= value %> 
+		<% end %>
+	<% end %>
+</div>
+<ul class="view-switch-container group">
+	<li>
+		<form action="<%= properties_url %>" method="GET">
+		  <%= auth_token %>
+			<input type="hidden" name="property[photo]">
+			<input type="hidden" name="property[address]" value="<%= params["property"]["address"] %>">
+			<input type="hidden" name="property[zip]" value="<%= params["property"]["zip"] %>">
+			<input type="hidden" name="property[borough]" value="<%= params["property"]["borough"] %>">
+			<input type="hidden" name="property[neighborhood]" value="<%= params["property"]["neighborhood"] %>">
+			<input type="hidden" name="property[min_price]" value="<%= params["property"]["min_price"] %>">
+			<input type="hidden" name="property[max_price]" value="<%= params["property"]["max_price"] %>">
+			<input type="hidden" name="property[beds]" value="<%= params["property"]["beds"] %>">
+			<input type="hidden" name="property[baths]" value="<%= params["property"]["baths"] %>">
+			<input type="hidden" name="property[sq_ft]" value="<%= params["property"]["sq_ft"] %>">
+			<input type="hidden" name="property[apt_type]" value="<%= params["property"]["apt_type"] %>">
+		  <button class="view-switch">LIST</button>
+		</form>
+	</li>
+	<li>
+		<form action="<%= index_map_url %>" method="GET">
+		  <%= auth_token %>
+			<input type="hidden" name="property[photo]">
+			<input type="hidden" name="property[address]" value="<%= params["property"]["address"] %>">
+			<input type="hidden" name="property[zip]" value="<%= params["property"]["zip"] %>">
+			<input type="hidden" name="property[borough]" value="<%= params["property"]["borough"] %>">
+			<input type="hidden" name="property[neighborhood]" value="<%= params["property"]["neighborhood"] %>">
+			<input type="hidden" name="property[min_price]" value="<%= params["property"]["min_price"] %>">
+			<input type="hidden" name="property[max_price]" value="<%= params["property"]["max_price"] %>">
+			<input type="hidden" name="property[beds]" value="<%= params["property"]["beds"] %>">
+			<input type="hidden" name="property[baths]" value="<%= params["property"]["baths"] %>">
+			<input type="hidden" name="property[sq_ft]" value="<%= params["property"]["sq_ft"] %>">
+			<input type="hidden" name="property[apt_type]" value="<%= params["property"]["apt_type"] %>">
+		  <button class="view-switch">MAP</button>
+		</form>
+	</li>
+</ul>
+
+<%= paginate @properties %>
+<div class="property-list-container">
+	<ul class="property-list">
+	<% @properties.each do |property| %>
+		<li class="property-listing" data-lat="<%= property.latitude %>" data-lng="<%= property.longitude %>">
+			<ul class="group">
+				<li class="listing-component">
+					<%= image_tag property.property_photo.url(:small) %>
+				</li>
+				<li class="listing-component">
+					<h3><a href="<%= property_url(property) %>"><%= property.address.split(" ").map(&:capitalize).join(" ") %></a></h3>
+					<% if signed_in? %>
+						<%= render "save_form", property: property %>
+					<% end %>
+					<ul>
+						<li>Price: <%= number_to_currency(property.price, precision: 0) %></li>
+						<li class="borough-index">Borough: <%= property.borough.split(" ").map(&:capitalize).join(" ") %></li>
+						<li>Neighborhood: <%= property.neighborhood.split(" ").map(&:capitalize).join(" ") %></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	<% end %>
+	</ul>
+</div>
+
+<div class="map-sidebar-container">
+	<div id="map" class="map-scrolling"></div>
+</div>
+
+<script>
+
+L.mapbox.accessToken = 'pk.eyJ1Ijoic2FpdG95ZXVuZyIsImEiOiJPOXA3aUowIn0.spWqAgo8-BgTGtYiLbOztg';
+var map = L.mapbox.map('map', 'saitoyeung.jbj6oj44');
+var geocoder = L.mapbox.geocoder('mapbox.places-v1');
+var defaultLat = 40.714728;
+var defaultLng = -73.998672;
+
+map.setView([defaultLat, defaultLng], 12);
+
+var address, borough, queryString, queryResult, lat, lng
+	$(document).ready( function() {
+		//want default on first property on page
+		$(".main").on("mouseenter", "li.property-listing", function(event) {
+			lat = $(event.currentTarget).attr("data-lat");
+			lng = $(event.currentTarget).attr("data-lng");
+		
+			if(lat && lng) {
+				map.setView([lat, lng], 15);
+				L.marker([lat, lng]).addTo(map);
+			}
+			else {
+				map.setView([defaultLat, defaultLng], 12);
+			}
+		});
+	});
+</script>
