@@ -1,19 +1,19 @@
 <div class="search-filter">
 	<% if(savedPage) { %>
 		<% if(count === 0) { %>
-			<h2 class="title">No Saved Properties</h2>
+			<h2 class="title">No Saved Properties 没有找到保存的地产</h2>
 		<% } else if (count === 1) { %>
-			<h2 class="title"><b><%= count %></b> Saved Properties</h2>
+			<h2 class="title"><b><%= count %></b> Saved Property 找到<b><%= count %></b>个保存的地产</h2>
 		<% } else { %>
-			<h2 class="title"><b><%= count %></b> Saved Properties</h2>
+			<h2 class="title"><b><%= count %></b> Saved Properties 找到<b><%= count %></b>个保存的地产</h2>
 		<% } %>
 	<% } else { %>
 		<% if(count === 0) { %>
-			<h2 class="title">No Properties Found</h2>
+			<h2 class="title">No Properties Found 没有找到符合条件的地产</h2>
 		<% } else if (count === 1) { %>
-			<h2 class="title"><b><%= count %></b> Property Found</h2>
+			<h2 class="title"><b><%= count %></b> Property Found 找到<b><%= count %></b>个地产</h2>
 		<% } else { %>
-			<h2 class="title"><b><%= count %></b> Properties Found</h2>
+			<h2 class="title"><b><%= count %></b> Properties Found 找到<b><%= count %></b>个地产</h2>
 		<% } %>
 	<% } %>
 </div>
@@ -51,12 +51,12 @@
 	<li class="sort-form-container">
 		<form class="sort-form">Sort By:
 			<select class="sort-select" name="sort-criterion">
-				<option val="price_largest" <% if(StreetEasyClone.sortString === "sort=price+desc") { %> Selected <% }; %>>Most Expensive</option>
-				<option val="price_smallest" <% if(StreetEasyClone.sortString === "sort=price+asc") { %> Selected <% }; %>>Least Expensive</option>
-				<option val="sq_ft_largest" <% if(StreetEasyClone.sortString === "sort=sq_ft+desc") { %> Selected <% }; %>>Largest</option>
-				<option val="sq_ft_smallest" <% if(StreetEasyClone.sortString === "sort=sq_ft+asc") { %> Selected <% }; %>>Smallest</option>
-				<option val="beds_largest" <% if(StreetEasyClone.sortString === "sort=beds+desc") { %> Selected <% }; %>>Most Bedrooms</option>
-				<option val="beds_smallest" <% if(StreetEasyClone.sortString === "sort=beds+asc") { %> Selected <% }; %>>Least Bedrooms</option>
+				<option val="price_largest" <% if(StreetEasyClone.sortString === "sort=price+desc") { %> Selected <% }; %>>Most Expensive-贵的优先</option>
+				<option val="price_smallest" <% if(StreetEasyClone.sortString === "sort=price+asc") { %> Selected <% }; %>>Least Expensive-便宜的优先</option>
+				<option val="sq_ft_largest" <% if(StreetEasyClone.sortString === "sort=sq_ft+desc") { %> Selected <% }; %>>Largest-面积大优先</option>
+				<option val="sq_ft_smallest" <% if(StreetEasyClone.sortString === "sort=sq_ft+asc") { %> Selected <% }; %>>Smallest-面积小优先</option>
+				<option val="beds_largest" <% if(StreetEasyClone.sortString === "sort=beds+desc") { %> Selected <% }; %>>Most Bedrooms-卧房多优先</option>
+				<option val="beds_smallest" <% if(StreetEasyClone.sortString === "sort=beds+asc") { %> Selected <% }; %>>Least Bedrooms-卧房少优先</option>
 			</select>
 			<button class="sort-button"></button>
 		</form>

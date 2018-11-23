@@ -47,6 +47,7 @@ gem 'geocoder'
 gem 'pg_search'
 gem 'faker'
 gem 'underscore-rails'
+gem 'rails-i18n'
 
 group :development do
   gem 'pry-rails'
@@ -62,6 +63,3 @@ end
 group :production do
   gem 'rails_12factor'
 end
-
-
-

@@ -47,7 +47,7 @@ a:hover {
 }
 
 button, select, option, input, textarea {
-	padding: 0; 
+	padding: 0;
 	margin: 0;
 	border: 0;
 	-webkit-appearance: none;
@@ -232,7 +232,7 @@ a.logo-link {
 	left: 0;
 	width: 100%;
 	z-index: 10000;
-	
+
 }
 
 #sign-in-sign-up.is-active {
@@ -491,7 +491,7 @@ select.small-input {
 /* List View - Options Bar Styles */
 
 .view-switch {
-	width: 72px;
+	width: 144px;
 	height: 30px;
 	border: 1px solid #ccc;
 	padding: 0 15px;
@@ -523,7 +523,7 @@ select.small-input {
 	border: 1px solid #ccc;
 	background: white;
 	border-radius: 0px;
-	width: 185px;
+	width: 200px;
 	height: 30px;
 	margin: auto;
 	padding: 0 10px;
@@ -638,13 +638,13 @@ a.ellipsis {
 
 /* List View - Map Styles */
 
-#sidebar-map {  
-	width: 300px; 
+#sidebar-map {
+	width: 300px;
 	height: 300px;
 }
 
 .map-static {
-	position: absolute; 
+	position: absolute;
 	top:300px;
 	left: 550px;
 }
@@ -668,10 +668,10 @@ a.ellipsis {
 /* Save/Delete Button Styles */
 
 .save-button {
-	width: 72px;
+	width: 120px;
 	height: 24px;
 	border: 1px solid #fdc435;
-	padding: 0 12px;
+	padding: 0 2px;
 	margin: 5px 0;
 	background-color: white;
 }
@@ -682,29 +682,29 @@ a.ellipsis {
 }
 
 .save-button:after {
-	content: "★ SAVE";
+	content: "SAVE-保存";
 }
 
 .save-button:disabled {
 	cursor: default;
-	width: 72px;
+	width: 120px;
 	height: 24px;
 	border: 1px solid #bbb;
-	padding: 0 12px;
+	padding: 0 2px;
 	margin: 5px 0;
 	background-color: #eee;
 	color: #bbb;
 }
 
 .save-button:disabled:after {
-	content: "SAVED";
+	content: "SAVED-已保存";
 }
 
 .delete-button {
-	width: 72px;
+	width: 120px;
 	height: 24px;
 	border: 1px solid #B40000;
-	padding: 0 12px;
+	padding: 0 2px;
 	margin: 5px 0;
 	background-color: #B40000;
 	color: white;
@@ -716,12 +716,12 @@ a.ellipsis {
 }
 
 .delete-button:after {
-	content: "REMOVE";
+	content: "REMOVE-移除";
 }
 
 
 /* Map View Styles */
-	
+
 div.map-view#map {
 	position: absolute;
 	top: 240px;
@@ -789,7 +789,7 @@ div.map-view#map {
 }
 
 .add-more-photos-button {
-	width: 180px;
+	width: 360px;
 	height: 38px;
 	padding: 7px;
 	color: white;
@@ -798,16 +798,12 @@ div.map-view#map {
 }
 
 .add-property-button {
-	width: 180px;
+	width: 360px;
 	height: 38px;
 	padding: 7px;
 	color: white;
 	background-color: #0080c6;
 	font-size: 13px;
-}
-
-.add-property-button:after {
-	content: "Submit without Photos";
 }
 
 .add-property-button:disabled {
@@ -838,7 +834,7 @@ div.map-view#map {
 
 #main-photo-container {
 	float: left;
-	width: 460px; 
+	width: 460px;
 }
 
 .right-hand-form {
@@ -1075,7 +1071,7 @@ div.map-view#map {
 
 .subway-station {
 	display: block;
-	
+
 	padding: 10px 0;
 	font-size: 12px;
 }
@@ -1126,7 +1122,3 @@ div.map-view#map {
 .new-comment-form button:hover {
 	background-color: #00669d;
 }
-
-
-
-

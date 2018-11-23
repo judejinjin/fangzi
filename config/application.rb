@@ -10,6 +10,10 @@ module StreetEasyClone
   class Application < Rails::Application
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.i18n.available_locales = [:en, :cn]
+    config.i18n.default_locale = :cn
+
     config.generators do |g|
       g.test_framework :rspec,
         :fixtures => true,

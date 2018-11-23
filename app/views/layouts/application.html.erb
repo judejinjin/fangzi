@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>StreetSimple</title>
+  <title><%= t :websitename %><%= t :websitenameSup %></title>
   <%= stylesheet_link_tag    'application', media: 'all'%>
   <%= javascript_include_tag 'application'%>
   <%= csrf_meta_tags %>
@@ -14,15 +14,20 @@
 	<div class="nav-logo">
 		<ul class="group">
 			<li>
-				<a href="/#" class="logo-link"><h1><i class="fa fa-home"></i>  STREET<sup>SIMPLE </sup></h1></a>
+				<a href="/" class="logo-link"><h1><i class="fa fa-home"></i> <%= t :websitename %><sup><b><i><%= t :websitenameSup %> </i><b></sup></h1></a>
 			</li>
 		</ul>
 	</div>
 <% if !signed_in? %>
 	<div class="nav-settings">
 		<ul class="group">
-			<li>
-				<a href="#" class="settings-link">Sign In / Register / <strong>Sign In As Demo User</strong></a>
+      <li>
+      <% if locale == :en %>
+        <%= link_to "中文", locale: :cn %>
+      <% else %>
+        <%= link_to "English", locale: :en %>
+      <% end %>
+				<a href="#" class="settings-link"><%= t :signIn %> / <%= t :register %></a>
 			</li>
 		</ul>
 	</div>
@@ -30,12 +35,12 @@
 	<div class="nav-settings">
 		<ul class="group">
 			<li class="user-dropdown-container">
-			  <a href="#">Welcome <%= current_user.email %> ▾</a>
+			  <a href="#"><%= t :greetings %>! <%= current_user.email %> ▾</a>
 				<ul class="dropdown">
-					<li><a href="#">Search Home</a>
-					<li><a href="#/property/new" class="new-property-link">Add a new property</a></li>
-					<li><a href="#/properties/saved" class="saved-property-link">Saved Properties</a></li>
-					<li><%= link_to "Sign out", session_url, method: :delete %></li>
+					<li><a href="#"><%= t :search_house %></a>
+					<li><a href="#/property/new" class="new-property-link"><%= t :add_house %></a></li>
+					<li><a href="#/properties/saved" class="saved-property-link"><%= t :saved_houses %></a></li>
+					<li><%= link_to t(:signOut), session_url, method: :delete %></li>
 				</ul>
 			</li>
 		</ul>
@@ -58,46 +63,45 @@
 	<section id="sign-in-sign-up">
 		<article class="signin-view">
 			<header>
-				<button class="sign-in-cancel">CANCEL</button>
-				<h3>Sign In</h3>
+				<button class="sign-in-cancel"><%= t :cancel %></button>
+				<h3><%= t :please_sign_in %></h3>
 			</header>
 			<div class="sign-in-body">
-				<p>Please sign in.</p>
+				<p><%= t :please_sign_in %></p>
 
 				<div class="switch-button-container">
 					<ul class="group">
-						<li><button class="signin-switch">SIGN IN</li>
-						<li><button class="register-switch">REGISTER</button></li>
+						<li><button class="signin-switch"><%= t :signIn %></li>
+						<li><button class="register-switch"><%= t :register %></button></li>
 					</ul>
 				</div>
 				<form action="<%= session_url %>" method="POST">
 					<%= auth_token %>
 					<input type="text" name="user[email]" placeholder="Email Address" class="modal-input" id="signin-email">
 					<input type="password" name="user[password]" placeholder="Password" class="modal-input" id="signin-password">
-					<button class="sign-in-button">SIGN IN</button>
-					<button class="sign-in-dummy">SIGN IN AS DEMO USER</button>
+					<button class="sign-in-button"><%= t :signIn %></button>
 				</form>
 			</div>
 		</article>
 
 		<article class="register-view">
 			<header>
-				<button class="sign-in-cancel">CANCEL</button>
-				<h3>Register</h3>
+				<button class="sign-in-cancel"><%= t :cancel %></button>
+				<h3><%= t :register %></h3>
 			</header>
 			<div class="sign-in-body">
-				<p>Register for free to access all StreetEasy has to offer including premium data and advanced features.</p>
+				<p><%= t :please_register %></p>
 				<div class="switch-button-container">
 					<ul class="group">
-						<li><button class="signin-switch">SIGN IN</li>
-						<li><button class="register-switch">REGISTER</button></li>
+						<li><button class="signin-switch"><%= t :signIn %></li>
+						<li><button class="register-switch"><%= t :register %></button></li>
 					</ul>
 				</div>
 				<form action="<%= users_url %>" method="POST">
 					<%= auth_token %>
 					<input type="text" name="user[email]" placeholder="Email Address" class="modal-input">
 					<input type="password" name="user[password]" placeholder="Password" class="modal-input">
-					<button class="sign-in-button">REGISTER</button>
+					<button class="sign-in-button"><%= t :register %></button>
 				</form>
 			</div>
 		</article>
@@ -177,16 +181,6 @@
 				$(".register-switch").removeClass("is-active");
       }
     });
-
-		$(".sign-in-dummy").on("click", function (event) {
-			event.preventDefault();
-			$("#signin-email").val("agent1@gmail.com");
-			$("#signin-password").val("agent1agent1");
-			$(".signin-view .sign-in-button").click();
-		});
-
-
-
 
 
 	});

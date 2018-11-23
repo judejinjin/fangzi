@@ -7,7 +7,7 @@
 	<div class="form-main">
 		<ul class="group">
 			<li class="form-element">
-			  <label for="search-address">LOCATION</label>
+			  <label for="search-address">Location(地址)</label>
 			  <input type="text" name="property[location]" list="choices" value="" class="big-input" id="search-address" placeholder="Borough / Neighborhood / Address">
 				<datalist id="choices">
 					<% StreetEasyClone.boroughs.forEach(function(borough) { %>
@@ -22,7 +22,7 @@
 				</datalist>
 			</li>
 			<li class="form-element">
-				<label for="search-apt-type">TYPE</label>
+				<label for="search-apt-type">Type(房屋类型)</label>
 			  <select name="property[apt_type]" id="search-apt-type" class="small-input">
 					<option value="">Any Type</option>
 					<% StreetEasyClone.apt_types.forEach(function(apt_type){ %>
@@ -33,7 +33,7 @@
 				</select>
 			</li>
 			<li class="form-element">
-			  <label for="search-min-price">MIN PRICE</label>
+			  <label for="search-min-price">Min. Price(最低价格)</label>
 				<select name="property[min_price]" id="search-min-price" class="small-input">
 					<option value="">Any</option>
 					<% for(var i = 0; i <= 10000000; i+=100000) { %>
@@ -42,7 +42,7 @@
 				</select>
 			</li>
 			<li class="form-element">
-			  <label for="search-max-price">MAX PRICE</label>
+			  <label for="search-max-price">Max. Price(最高价格)</label>
 				<select name="property[max_price]" id="search-max-price" class="small-input">
 					<option value="">Any</option>
 					<% for(var i = 0; i <= 10000000; i+=100000) { %>
@@ -51,7 +51,7 @@
 				</select>
 			</li>
 			<li class="form-element">
-			  <label for="search-beds">BEDROOMS</label>
+			  <label for="search-beds">Bedrooms(几卧房)</label>
 				<select name="property[beds]" id="search-bed-type" class="small-input">
 					<option value="">Any</option>
 					<% StreetEasyClone.bed_types.forEach(function(bed_type){ %>
@@ -68,7 +68,7 @@
 				</select>
 			</li>
 			<li class="form-element">
-			  <label for="search-baths">BATHROOMS</label>
+			  <label for="search-baths">Bathrooms(几卫)</label>
 				<select name="property[baths]" id="search-bath-type" class="small-input">
 					<option value="">Any</option>
 					<% StreetEasyClone.bath_types.forEach(function(bath_type){ %>
@@ -79,7 +79,7 @@
 				</select>
 			</li>
 			<li class="form-element">
-				<button class="search-button">SEARCH</button>
+				<button class="search-button">Search(搜索)</button>
 			</li>
 		</ul>
 	</div>
