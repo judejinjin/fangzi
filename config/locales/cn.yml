@@ -12,7 +12,7 @@ cn:
   search_house: "搜索房子"
   add_house: "添加房子"
   edit_house: "修改房子"
-  saved_houses: "已保存的房子"
+  saved_houses: "我喜欢的房子"
   signOut: "登出"
   activerecord:
     errors:

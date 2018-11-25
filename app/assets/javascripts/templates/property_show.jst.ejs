@@ -2,7 +2,7 @@
 	<ul class="save-button-list group">
 	<% if(StreetEasyClone.currentUser) { %>
 		<% if (parseInt(property.escape("owner_id")) === StreetEasyClone.currentUser) {%>
-			<li><a href="#/property/edit/<%= property.escape('id') %>" class="edit-button">Edit this listing</a><li>
+			<li><a href="#/property/edit/<%= property.escape('id') %>" class="edit-button">Edit 修改</a><li>
 		<% } %>
 
 		<% if (property.escape("following_users").indexOf(StreetEasyClone.currentUser) !== -1) { %>

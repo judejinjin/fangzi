@@ -682,7 +682,7 @@ a.ellipsis {
 }
 
 .save-button:after {
-	content: "SAVE-保存";
+	content: "Like-喜欢";
 }
 
 .save-button:disabled {
@@ -697,7 +697,7 @@ a.ellipsis {
 }
 
 .save-button:disabled:after {
-	content: "SAVED-已保存";
+	content: "Liked-已喜欢";
 }
 
 .delete-button {

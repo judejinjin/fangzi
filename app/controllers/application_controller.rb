@@ -73,14 +73,19 @@ class ApplicationController < ActionController::Base
     @all_neighborhoods ||= Property.all.uniq.pluck(:neighborhood).map(&:strip).reject.sort.map do |entry|
       entry.split(" ").map(&:capitalize).join(" ")
     end
+
+    @all_neighborhoods = @all_neighborhoods.uniq
   end
 
   def all_apt_types
     @all_apt_types ||= Property.all.uniq.pluck(:apt_type).map(&:strip).map(&:capitalize).reject.sort
+    @all_apt_types = @all_apt_types.uniq
+
   end
 
   def all_addresses
     @all_addresses ||= Property.all.uniq.pluck(:address).map(&:strip).map(&:capitalize).reject.sort
+    @all_addresses = @all_addresses.uniq
   end
 
 
