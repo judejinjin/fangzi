@@ -39,8 +39,9 @@
 				<ul class="dropdown">
 					<li><a href="#"><%= t :search_house %></a>
 					<li><a href="#/property/new" class="new-property-link"><%= t :add_house %></a></li>
+          <li><a href="#/properties/property[owner_id]=<%=current_user.id%>" class="my-property-link"><%= t :my_houses %></a></li>
 					<li><a href="#/properties/saved" class="saved-property-link"><%= t :saved_houses %></a></li>
-					<li><%= link_to t(:signOut), session_url, method: :delete %></li>
+          <li><%= link_to t(:signOut), session_url, method: :delete %></li>
 				</ul>
 			</li>
 		</ul>

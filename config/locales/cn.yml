@@ -13,6 +13,7 @@ cn:
   add_house: "添加房子"
   edit_house: "修改房子"
   saved_houses: "我喜欢的房子"
+  my_houses: "我的房子"
   signOut: "登出"
   activerecord:
     errors:

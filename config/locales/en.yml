@@ -12,7 +12,8 @@ en:
   search_house: Search House
   add_house: Add House
   add_house: Edit House
-  saved_houses: Saved Houses
+  saved_houses: My Liked Houses
+  my_houses: My Houses
   signOut: Sign Out
   activerecord:
     errors:

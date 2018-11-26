@@ -1,23 +1,24 @@
 class Api::PropertiesController < ApplicationController
   before_action :require_signed_in, only: [:new, :create, :edit, :update, :destroy]
   before_action :require_owner, only: [:edit, :update, :destroy]
-  
+
   wrap_parameters false
-    
+
   def index
     if params[:saved] && current_user
       @properties = current_user.saved_properties
     else
       sql_query = ""
-    
+
       comparator = {
         apt_type: "=",
         min_price: ">=",
         max_price: "<=",
         beds: "=",
         baths: ">=",
+        owner_id: "=",
       }
-    
+
       location_value = nil
       values_hash = {}
 
@@ -27,11 +28,11 @@ class Api::PropertiesController < ApplicationController
             location_value = value
           else
             values_hash[key.to_sym] = value
-          
+
             if !sql_query.empty?
               sql_query.concat(" AND ")
             end
-            
+
             if key == "min_price" || key == "max_price"
               sql_query.concat("price #{comparator[key.to_sym]} :#{key}")
             else
@@ -41,7 +42,7 @@ class Api::PropertiesController < ApplicationController
           end
         end
       end
-    
+
       if location_value.nil?
         @properties = Property.where(sql_query, values_hash).reorder(params[:sort].concat(" NULLS LAST")).page(params[:page]).per(12)
       else
@@ -89,7 +90,7 @@ class Api::PropertiesController < ApplicationController
 
   def update
     @property = Property.find(params[:id])
-    
+
     if !save_params.empty?
       if @property.following_users << User.find(save_params[:following_user_id])
         render json: @property
@@ -103,7 +104,7 @@ class Api::PropertiesController < ApplicationController
         render json: @property.errors.full_messages, status: 422
       end
     end
-    
+
 
   end
 
@@ -140,9 +141,10 @@ class Api::PropertiesController < ApplicationController
                                      :min_price,
                                      :max_price,
                                      :beds,
-                                     :baths)
+                                     :baths,
+                                     :owner_id)
   end
-  
+
   def save_params
     params.permit(:following_user_id)
   end
@@ -155,5 +157,5 @@ class Api::PropertiesController < ApplicationController
       render json: @property_save.errors.full_messages, status: 422
     end
   end
-  
+
 end
