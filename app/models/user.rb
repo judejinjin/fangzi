@@ -1,7 +1,22 @@
 class User < ActiveRecord::Base
-  validates :email, :password_digest, presence: true
-  validates :email, uniqueness: true
-  validates :password, length: { minimum: 6, allow_nil: true }
+  #validates :email, :encrypted_password, presence: true
+  #validates :email, uniqueness: true
+  #validates :password, length: { minimum: 6, allow_nil: true }
+
+  devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter]
+
+  def self.create_from_provider_data(auth)
+    where(email: auth.info.email).first_or_create do | user |
+   #where(provider: auth.provider, uid: auth.uid).first_or_create do | user |
+     user.provider = auth.provider
+     user.uid = auth.uid
+     #user.email = auth.info.email
+     user.password = Devise.friendly_token[0, 20]
+     user.encrypted_password = ''
+     user.name = auth.info.name   # assuming the user model has a name
+     user.image = auth.info.image # assuming the user model has an image
+   end
+  end
 
   has_many(
     :properties,
@@ -10,7 +25,7 @@ class User < ActiveRecord::Base
     primary_key: :id,
     inverse_of: :owner
   )
-  
+
   has_many(
     :property_saves,
     class_name: "PropertySave",
@@ -18,7 +33,7 @@ class User < ActiveRecord::Base
     primary_key: :id,
     inverse_of: :user
   )
-  
+
   has_many(
     :authored_comments,
     class_name: "Comment",
@@ -26,7 +41,7 @@ class User < ActiveRecord::Base
     primary_key: :id,
     inverse_of: :author
   )
-  
+
   has_many :saved_properties, through: :property_saves, source: :property
 
   attr_reader :password
@@ -37,9 +52,9 @@ class User < ActiveRecord::Base
     user = User.find_by_email(email)
 
     if user
-      if user.is_password?(password)
+      #if user.is_password?(password)
         return user
-      end
+      #end
     end
 
     return nil
@@ -47,12 +62,12 @@ class User < ActiveRecord::Base
 
   def password=(password)
     @password = password
-    self.password_digest = BCrypt::Password.create(password)
+    #self.encrypted_password = BCrypt::Password.create(password)
   end
 
-  def is_password?(password)
-    BCrypt::Password.new(self.password_digest).is_password?(password)
-  end
+  #def is_password?(password)
+  #  BCrypt::Password.new(self.encrypted_password).is_password?(password)
+  #end
 
   def self.generate_session_token
     SecureRandom.urlsafe_base64(16)

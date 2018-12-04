@@ -70,6 +70,10 @@
 			<div class="sign-in-body">
 				<p><%= t :please_sign_in %></p>
 
+        <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+        <%= link_to "Sign in with Twitter", user_twitter_omniauth_authorize_path %>
+        <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
+
 				<div class="switch-button-container">
 					<ul class="group">
 						<li><button class="signin-switch"><%= t :signIn %></li>

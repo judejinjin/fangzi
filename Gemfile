@@ -49,6 +49,11 @@ gem 'faker'
 gem 'underscore-rails'
 gem 'rails-i18n'
 
+gem 'devise', '~> 4.2'
+gem 'omniauth-facebook', '~> 4.0'
+gem 'omniauth-google-oauth2', '~> 0.4.1'
+gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
+
 group :development do
   gem 'pry-rails'
   gem 'better_errors'
