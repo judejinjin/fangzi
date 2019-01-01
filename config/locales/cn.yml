@@ -15,6 +15,16 @@ cn:
   saved_houses: "我喜欢的房子"
   my_houses: "我的房子"
   signOut: "登出"
+  my_settings: "我的设置"
+  my_name: "姓名"
+  my_pic: "头像"
+  brokerage: "地产经纪公司名称"
+  phone: "手机/电话"
+  email: 电子邮件
+  submit: 提交
+  sign_in_google: 使用谷歌登录
+  sign_in_twitter: 使用推特登录
+  sign_in_facebook: 使用脸书登录
   activerecord:
     errors:
       messages:

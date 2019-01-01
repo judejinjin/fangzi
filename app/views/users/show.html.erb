@@ -1,15 +1,14 @@
-<a href="<%= new_user_property_url(@user) %>">Add new property</a>
 
-<h3>Saved Properties</h3>
-<ul>
-<% @user.saved_properties.each do |property| %>
-	<li>
-		<h3><a href="<%= property_url(property) %>"><%= property.address.split(" ").map(&:capitalize).join(" ") %></a></h3>
-		<ul>
-			<li>Price: <%= number_to_currency(property.price, precision: 0) %></li>
-			<li>Neighborhood: <%= property.neighborhood.split(" ").map(&:capitalize).join(" ") %></li>
-		</ul>
-	</li>
-	
+<h3><%= t :my_settings %></h3>
+<% if signed_in? %>
+		<a href="<%= profile_url(params[:id]) + "#_=_"%>">Edit 修改</a>
 <% end %>
+
+
+<ul>
+<img src="<%= @user.image %>"><br>
+<%= t :my_name %>: <%= @user.user_profile.name %> <br>
+<%= t :brokerage %>: <%= @user.user_profile.brokerage %><br>
+<%= t :phone %>:<%= @user.user_profile.phone %><br>
+<%= t :email %>:<%= @user.user_profile.emailcontact %><br>
 </ul>

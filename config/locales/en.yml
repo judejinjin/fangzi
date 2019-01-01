@@ -15,6 +15,16 @@ en:
   saved_houses: My Liked Houses
   my_houses: My Houses
   signOut: Sign Out
+  my_settings: My Settings
+  my_name: Name
+  my_pic: Profile Picture
+  brokerage: Brokerage Name
+  phone: Cell/Phone Number
+  email: Email
+  submit: Submit
+  sign_in_google: Sign in with Google
+  sign_in_twitter: Sign in with Twiter
+  sign_in_facebook: Sign in with Facebook
   activerecord:
     errors:
       messages:

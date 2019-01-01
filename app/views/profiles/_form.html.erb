@@ -1,0 +1,33 @@
+<% header =   t :my_settings %>
+<% @profile = current_user.user_profile %>
+<% action_path =  profile_url(params[:id]) + "#_=_" %>
+<% action = "PATCH" %>
+
+<h2><%= header %></h2>
+<br>
+
+<form action="<%= action_path %>" method="POST">
+  <%= auth_token %>
+	<%= action_modifier(action) %>
+	<label>
+    <%= t :my_name %>:
+    <input type="text" name="profile[name]" value="<%= @profile.name %>" class="small-input">
+  </label>
+  <br>
+  <label>
+    <%= t :brokerage%>:
+    <input type="text" name="profile[brokerage]" value="<%= @profile.brokerage %>" class="small-input">
+  </label>
+	<br>
+  <label>
+    <%= t :phone%>:
+    <input type="text" name="profile[phone]" value="<%= @profile.phone %>" class="small-input">
+  </label>
+	<br>
+  <label>
+    <%= t :email%>:
+    <input type="text" name="profile[emailcontact]" value="<%= @profile.emailcontact %>" class="small-input">
+  </label>
+  <br>
+	<button><%= t :submit%></button>
+</form>

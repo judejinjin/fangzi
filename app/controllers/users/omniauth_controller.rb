@@ -4,6 +4,12 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
   def facebook
     @user = User.create_from_provider_data(request.env['omniauth.auth'])
     if @user.persisted?
+      @user.user_profile = Profile.find_by_user_id(@user.id)
+      if !@user.user_profile
+        @user.user_profile = Profile.new()
+        @user.user_profile.user_id = @user.id
+        @user.user_profile.save
+      end
       #sign_in_and_redirect @user
       login(@user)
       redirect_to user_url(@user)
@@ -18,6 +24,12 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
   def google_oauth2
     @user = User.create_from_provider_data(request.env['omniauth.auth'])
     if @user.persisted?
+      @user.user_profile = Profile.find_by_user_id(@user.id)
+      if !@user.user_profile
+        @user.user_profile = Profile.new()
+        @user.user_profile.user_id = @user.id
+        @user.user_profile.save
+      end
       #sign_in_and_redirect @user
       login(@user)
       redirect_to user_url(@user)
@@ -32,6 +44,12 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
   def twitter
     @user = User.create_from_provider_data(request.env['omniauth.auth'])
     if @user.persisted?
+      @user.user_profile = Profile.find_by_user_id(@user.id)
+      if !@user.user_profile
+        @user.user_profile = Profile.new()
+        @user.user_profile.user_id = @user.id
+        @user.user_profile.save
+      end
       #sign_in_and_redirect @user
       login(@user)
       redirect_to user_url(@user)

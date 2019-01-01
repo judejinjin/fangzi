@@ -42,6 +42,14 @@ class User < ActiveRecord::Base
     inverse_of: :author
   )
 
+  has_one(
+    :user_profile,
+    class_name: "Profile",
+    foreign_key: :user_id,
+    primary_key: :id,
+    inverse_of: :user
+  )
+  
   has_many :saved_properties, through: :property_saves, source: :property
 
   attr_reader :password

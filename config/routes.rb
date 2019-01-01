@@ -3,12 +3,14 @@ Rails.application.routes.draw do
     root to: "root#root", as: "root"
     resources :users do
       resources :properties, only: [:new, :create]
+      resources :profiles, only: [:new, :create]
     end
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth" }
 
   resource :session, only: [:new, :create, :destroy]
+  resources :profiles, except: [:new, :create]
 
   get "/", to: "root#root"
 
