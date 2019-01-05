@@ -6,7 +6,7 @@
 
 
 <ul>
-<img src="<%= @user.image %>"><br>
+<img src="<%= @user.user_profile.photo.url(:big) %>"><br>
 <%= t :my_name %>: <%= @user.user_profile.name %> <br>
 <%= t :brokerage %>: <%= @user.user_profile.brokerage %><br>
 <%= t :phone %>:<%= @user.user_profile.phone %><br>

@@ -6,7 +6,7 @@
 <h2><%= header %></h2>
 <br>
 
-<form action="<%= action_path %>" method="POST">
+<form action="<%= action_path %>"  enctype="multipart/form-data" method="POST">
   <%= auth_token %>
 	<%= action_modifier(action) %>
 	<label>
@@ -29,5 +29,18 @@
     <input type="text" name="profile[emailcontact]" value="<%= @profile.emailcontact %>" class="small-input">
   </label>
   <br>
+  <br>
+  <label>
+    <%= t :my_pic %>:<br>
+  </label>
+
+  <div id="profile-photo-container">
+        <img src="<%= @profile.photo.url(:big) %>" id="profile-photo-default" class="current-image">
+    <div class="profile-photo-button-container">
+      <input type="file" name="profile[photo]" id="profile-photo-upload"><br>
+      <button class="profile-photo-button">Upload Portrait 上传头像</button>
+    </div>
+  </div>
+
 	<button><%= t :submit%></button>
 </form>

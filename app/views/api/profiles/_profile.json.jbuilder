@@ -4,8 +4,6 @@ json.name profile.name
 json.brokerage profile.brokerage
 json.phone profile.phone
 json.emailcontact profile.emailcontact
-json.photo_file_name profile.photo_file_name
-json.photo_content_type profile.photo_content_type
-json.photo_file_size profile.photo_file_size
+json.photo_url asset_path(profile.photo.url(:big))
 json.created_at profile.created_at
 json.updated_at profile.updated_at

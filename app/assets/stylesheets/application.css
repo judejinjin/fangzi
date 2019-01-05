@@ -788,6 +788,11 @@ div.map-view#map {
 	height: 300px;
 }
 
+#profile-photo-container img{
+	width: 150px;
+	height: 200px;
+}
+
 .add-more-photos-button {
 	width: 360px;
 	height: 38px;
@@ -893,6 +898,10 @@ div.map-view#map {
 }
 
 .main-photo-button-container {
+	padding: 10px 0;
+}
+
+.profile-photo-button-container {
 	padding: 10px 0;
 }
 
